@@ -63,9 +63,9 @@
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="{{route('users.informations')}}" class="brand-link">
-          <img src="{{asset('images/rh.png')}}" alt="Rh Image" class="brand-image img-circle elevation-3"
+          <img src="{{asset('images/emsi1.jpg')}}" alt="EMSI Image" class="brand-image img-circle elevation-3"
                style="opacity: .8;margin-top:1px;">
-          <span class="brand-text font-weight-light" style="font-size:25px;">RH Management</span>
+          <span class="brand-text font-weight-light" style="font-size:25px;">App</span>
         </a>
         
         <!-- Sidebar -->
@@ -73,6 +73,7 @@
           <!-- Sidebar user panel (optional) -->
           <div class="user-panel mt-3 pb-3 d-flex">
             <div class="image">
+              @auth
              @if(auth()->user()->photo)
               <img src="{{asset('upload/employe/'.Auth::user()->photo)}}" class="rounded-circle" alt="Image user" width="50px"height="20px">
               @else
@@ -84,8 +85,8 @@
               <a href="{{route('users.edit',['id' => auth()->user()->id])}}" class="d-block mt-3 ml-1 ">{{Auth::user()->name}} {{Auth::user()->prenom}}</a>
               @endif
             </div>
-          </div>
-    
+          </div> 
+          @endauth   
           <!-- Sidebar Menu -->
           @if(auth()->user()->role == 'admin')
           <nav class="mt-2">
@@ -99,26 +100,6 @@
                     Tableau de bord
                   </p>
                 </a>
-                <nav class="mt-2">
-                  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                  <li class="nav-item has-treeview ">
-                        <a href="#" class="nav-link">
-                          <i class="fas fa-user-tie"></i>
-                          <p class ="ml-2">
-                            Utilisateurs
-                            <i class="right fas fa-angle-left"></i>
-                          </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                          <li class="nav-item">
-                            <a href="{{route('users.index')}}" class="nav-link">
-                              <i class="far fa-circle nav-icon"></i>
-                              <p>Les utilisateurs</p>
-                            </a>
-                          </li>
-                        </li>
-                    </ul>
-                  </nav>
                   <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                       <!-- Add icons to the links using the .nav-icon class
@@ -138,76 +119,66 @@
                               <p>Les employés</p>
                             </a>
                           </li>
-                          <li class="nav-item">
-                            <a href="{{route('employes.create')}}" class="nav-link">
-                              <i class="far fa-circle nav-icon"></i>
-                              <p>Ajouter un employé</p>
-                            </a>
-                          </li>
                         </li>
                       </ul>
                     </nav>
+                    <nav class="mt-2">
+                              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                                <!-- Add icons to the links using the .nav-icon class
+                                     with font-awesome or any other icon font library -->
+                                    <nav class="mt-2">
+                                      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                                        <!-- Add icons to the links using the .nav-icon class
+                                             with font-awesome or any other icon font library -->
+                                        <li class="nav-item has-treeview">
+                                          <a href="#" class="nav-link">
+                                            <i class="fas fa-plane"></i>
+                                            <p class ="ml-2">
+                                              Contrats
+                                              <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                          </a>
+                                          <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                              <a href="{{route('contrats.index')}}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Les Contrats</p>
+                                              </a>
+                                            </li>
+                                          </li>
+                                        </ul>
+                                      </nav>
+                    <nav class="mt-2">
+                              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                                <!-- Add icons to the links using the .nav-icon class
+                                     with font-awesome or any other icon font library -->
+                                    <nav class="mt-2">
+                                      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                                        <!-- Add icons to the links using the .nav-icon class
+                                             with font-awesome or any other icon font library -->
+                                        <li class="nav-item has-treeview">
+                                          <a href="#" class="nav-link">
+                                            <i class="fas fa-plane"></i>
+                                            <p class ="ml-2">
+                                              Conges
+                                              <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                          </a>
+                                          <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                              <a href="{{route('conges.index')}}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Les congés</p>
+                                              </a>
+                                            </li>
+                                          </li>
+                                        </ul>
+                                      </nav>
                             <!-- Sidebar Menu -->
           <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
               <!-- Add icons to the links using the .nav-icon class
                    with font-awesome or any other icon font library -->
-                <nav class="mt-2">
-                  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <!-- Add icons to the links using the .nav-icon class
-                         with font-awesome or any other icon font library -->
-                    <li class="nav-item has-treeview">
-                      <a href="#" class="nav-link">
-                        <i class="fas fa-file-contract"></i>
-                        <p class ="ml-2">
-                          Contrats
-                          <i class="right fas fa-angle-left"></i>
-                        </p>
-                      </a>
-                      <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                          <a href="{{route('contrats.index')}}" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Les contrats</p>
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a href="{{route('contrats.create')}}" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Ajouter un contrat</p>
-                          </a>
-                        </li>
-                      </li>
-                    </ul>
-                  </nav>
-                  <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                      <!-- Add icons to the links using the .nav-icon class
-                           with font-awesome or any other icon font library -->
-                      <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                          <i class="fas fa-plane"></i>
-                          <p class ="ml-2">
-                            Conges
-                            <i class="right fas fa-angle-left"></i>
-                          </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                          <li class="nav-item">
-                            <a href="{{route('conges.index')}}" class="nav-link">
-                              <i class="far fa-circle nav-icon"></i>
-                              <p>Les congés</p>
-                            </a>
-                          </li>
-                          <li class="nav-item">
-                            <a href="{{route('conges.create')}}" class="nav-link">
-                              <i class="far fa-circle nav-icon"></i>
-                              <p>Ajouter un congé</p>
-                            </a>
-                          </li>
-                        </li>
-                      </ul>
-                    </nav>
                     <nav class="mt-2">
                       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
@@ -227,10 +198,26 @@
                                 <p>Les soldes</p>
                               </a>
                             </li>
+                          </li>
+                        </ul>
+                      </nav>
+                      <nav class="mt-2">
+                      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                             with font-awesome or any other icon font library -->
+                        <li class="nav-item has-treeview">
+                          <a href="#" class="nav-link">
+                            <i class="fas fa-plus"></i>
+                            <p class ="ml-2">
+                              Absences
+                              <i class="right fas fa-angle-left"></i>
+                            </p>
+                          </a>
+                          <ul class="nav nav-treeview">
                             <li class="nav-item">
-                              <a href="{{route('soldes.create')}}" class="nav-link">
+                              <a href="{{route('absences.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Ajouter un solde</p>
+                                <p>Les Absences</p>
                               </a>
                             </li>
                           </li>
@@ -254,28 +241,6 @@
                               <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                                 <!-- Add icons to the links using the .nav-icon class
                                      with font-awesome or any other icon font library -->
-                                  <nav class="mt-2">
-                                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                                      <!-- Add icons to the links using the .nav-icon class
-                                           with font-awesome or any other icon font library -->
-                                      <li class="nav-item has-treeview">
-                                        <a href="#" class="nav-link">
-                                          <i class="fas fa-file-contract"></i>
-                                          <p class ="ml-2">
-                                            Contrats
-                                            <i class="right fas fa-angle-left"></i>
-                                          </p>
-                                        </a>
-                                        <ul class="nav nav-treeview">
-                                          <li class="nav-item">
-                                            <a href="{{route('contrats.index')}}" class="nav-link">
-                                              <i class="far fa-circle nav-icon"></i>
-                                              <p>Les contrats</p>
-                                            </a>
-                                          </li>
-                                        </li>
-                                      </ul>
-                                    </nav>
                                     <nav class="mt-2">
                                       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                                         <!-- Add icons to the links using the .nav-icon class
@@ -299,6 +264,28 @@
                                         </ul>
                                       </nav>
                                       </nav>
+                                      <nav class="mt-2">
+                      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                             with font-awesome or any other icon font library -->
+                        <li class="nav-item has-treeview">
+                          <a href="#" class="nav-link">
+                            <i class="fas fa-plus"></i>
+                            <p class ="ml-2">
+                              Absences
+                              <i class="right fas fa-angle-left"></i>
+                            </p>
+                          </a>
+                          <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                              <a href="{{route('absences.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Les Absences</p>
+                              </a>
+                            </li>
+                          </li>
+                        </ul>
+                      </nav>
                                               </nav>
                                               
                             @endif
@@ -323,7 +310,7 @@
       <!-- /.content-wrapper -->
     </div>
     <footer class="main-footer">
-      <strong>Copyright &copy; 2022 <a href="#">Taha Elmaniari</a>.</strong> Tous les droits sont réservés
+      <strong>Copyright &copy; 2023 <a href="#">Taha EL MANIARI</a>.</strong> Tous les droits sont réservés
     </footer>
   
     <!-- Control Sidebar -->

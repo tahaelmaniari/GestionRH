@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Conge;
 use App\Models\Contrat;
 use App\Models\Employe;
+use App\Models\TypeContrat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Routing\Controller;
@@ -58,10 +59,10 @@ class ContratController extends Controller
      */
     public function create()
     {
-        $contrats = Contrat::all();
         $employes = Employe::all();
+        $typeContrats = TypeContrat::all();
         return view('contrats.create',
-        ['employes' => $employes,'contrats' => $contrats]);
+        ['employes' => $employes,'typeContrats' => $typeContrats]);
     }
 
     /**
@@ -73,7 +74,7 @@ class ContratController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'typeContrat' => 'required|min:1|max:10',
+            'typeContrat' => 'required|min:1',
             'dateContrat' => 'required|date_format:Y-m-d',
            'employe_id' => 'required'
            ]);

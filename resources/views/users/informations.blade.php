@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 @if(session('autorisation'))
 <div class="alert alert-danger">
@@ -7,9 +6,6 @@
 </div>
 @endif
 <small>Bienvenue <h1>{{auth()->user()->name}} {{auth()->user()->prenom}}</h1></small>
-@php
-    // dd($autorisation);
-@endphp
 <div class="row">
     <div class="col-md-3 col-sm-6 col-xs-12">
       <div class="info-box">
@@ -109,8 +105,8 @@
         <span class="info-box-icon bg-purple"><i class="fas fa-city"></i></span>
 
         <div class="info-box-content">
-          <span class="info-box-text">Ville</span>
-          <span class="info-box-number">{{$user->ville}}</span>
+          <span class="info-box-text">Nombre d'absences</span>
+          <span class="info-box-number">{{$nombreAbsence}} Absence (s)</span>
         </div>
         <!-- /.info-box-content -->
       </div>

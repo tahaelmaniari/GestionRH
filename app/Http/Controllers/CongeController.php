@@ -121,7 +121,7 @@ class CongeController extends Controller
                 $c->dateAccorde = Carbon::now();
                 $c->save();
                 $emp->save();
-                $request->session()->flash('success','Vous a bien demandé le congé');
+                $request->session()->flash('success','Vous aves bien bien demandé le congé');
                 return redirect()->route('conges.index');
              }
              else
@@ -234,7 +234,10 @@ class CongeController extends Controller
                 $conge->dateDebut = $request->dateDebut;
                 $conge->dateFin = $request->dateFin;
                 $conge->nombreCongeDemandeEmploye = $request->nombreCongeDemandeEmploye;
-                $emp->nombreConge = $emp->nombreConge - $nombreCongeDemandeEmploye;  
+                if($conge->status == 1)
+                {
+                    $emp->nombreConge = $emp->nombreConge - $nombreCongeDemandeEmploye;
+                }
                 $conge->nombreCongeDemande = $request->nombreCongeDemandeEmploye;
                 $conge->nombreCongeDemandeByEmploye = $request->nombreCongeDemandeEmploye;
                 $conge->update();
@@ -267,6 +270,7 @@ class CongeController extends Controller
                        $conge->dateFin = $request->dateFin;
                        $conge->nombreCongeDemandeEmploye = $request->nombreCongeDemandeEmploye;
                        $conge->nombreCongeDemandeByEmploye = $request->nombreCongeDemandeEmploye;
+                       if($conge->status == 1)
                        $emp->nombreConge = 50 - $nombreCongeDemandeEmploye;
                        $conge->admin_id = auth()->user()->id;
                        $conge->nombreCongeDemande = $request->nombreCongeDemandeEmploye;
@@ -326,7 +330,7 @@ class CongeController extends Controller
         $conge->nombreCongeDemande = $conge->nombreCongeDemandeByEmploye;
         $conge->update();
         $employe->update();
-        $request->session()->flash('congeValidation','Impossible de valider ce congé');
+        $request->session()->flash('congeValidation','Le congé est bien validé');
         return redirect()->route('conges.index');
         }
         else

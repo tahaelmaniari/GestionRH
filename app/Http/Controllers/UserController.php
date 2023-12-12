@@ -9,6 +9,7 @@ use Dotenv\Store\File\Paths;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Absence;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
@@ -22,12 +23,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except('users.index');
-    }
-    public function connect()
-    {
-        $password = Hash::make('TAHAyassine01');
-        dd($password);
+        $this->middleware('auth')->except(['users.index','users.update']);
     }
     public function index(Request $request)
     {
@@ -248,10 +244,12 @@ public function informations()
         $typeStatus = 'Confirmé';
         }
     }
-     // $users = User::all()->count();
-    //$employes = Employe::all()->count();
-    //$conge = $user->conge->count();
-    //$contrat = $user->contrat->count();
-    return view('users.informations',['users' => $users,'nbCongeDemandeEmploye'=>$nbCongeDemandeEmploye,'jourAnnuel' => $jourAnnuel,'employe' => $employe,'employes' => $employes,'contrat' => $contrat,'user' => $user,'nombreCongeDemande'=> $nombreCongeDemande,'contrats' => $contrats,'nombreConges' => $nombreConges,'specialite'=> $specialite,'nombreConge'=> $nombreConge,'typeStatus' => $typeStatus,'dateDebut' => $dateDebut]);
+    $nombreAbsence = Absence::where('employe_id',auth()->user()->id)->count();
+    return view('users.informations',
+    ['users' => $users,
+    'nbCongeDemandeEmploye'=>$nbCongeDemandeEmploye,
+    'jourAnnuel' => $jourAnnuel,'employe' => $employe,'employes' => $employes,'contrat' => $contrat,'user' => $user,'nombreCongeDemande'=> $nombreCongeDemande,'contrats' => $contrats,'nombreConges' => $nombreConges,'specialite'=> $specialite,'nombreConge'=> $nombreConge,'typeStatus' => $typeStatus,'dateDebut' => $dateDebut,
+    'nombreAbsence' => $nombreAbsence
+]);
 }
 }

@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\AbsenceController;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\PostUser;
@@ -35,7 +37,7 @@ Artisan::call('config:cache');
 Artisan::call('view:clear');*/
 Route::get('password',function()
 {
-    dd(Hash::make('ibtissam'));
+    dd(Hash::make('password'));
 });
 
 Route::get('/',function()
@@ -77,6 +79,7 @@ Route::prefix('societes')->group(function(){
 Route::get('/societe',[SocieteController::class,'index'])->name('societe.index');
 Route::get('/societe/{id}',[SocieteController::class,'show'])->name('societe.show');
 });
+
 Route::prefix('employes')->group(function()
 {
 //Route::get('/create',[EmployeController::class,'create'])->name('employes.create');
@@ -108,6 +111,9 @@ Route::group(['middleware' => ['autorisation']],function(){
         Route::put('/update/{id}',[EmployeController::class,'update'])->name('employes.update');
         Route::get('/edit/{id}',[EmployeController::class,'edit'])->name('employes.edit');
         Route::delete('/destroy/{id}',[EmployeController::class,'destroy'])->name('employes.destroy');
+        Route::post('changeRole/{id}',[EmployeController::class,'changeRole'])->name('employes.changeRole');
+        Route::post('changeAdmin/{id}',[EmployeController::class,'changeAdmin'])->name('employes.changeAdmin');
+
         //Route::get('/pdf',[EmployeController::class,'pdf'])->name('employes.pdf');
     });
 
@@ -146,4 +152,14 @@ Route::prefix('soldes')->group(function(){
     Route::post('/jourAnnuel',[SoldeController::class,'jourAnnuel'])->name('soldes.jourAnnuel');
     Route::get('/pdf',[SoldeController::class,'pdf'])->name('soldes.pdf');
 });
+});
+Route::resource('absences',AbsenceController::class);
+Route::get('/absence/pdf',[AbsenceController::class,'pdf'])->name('absences.pdf');
+Route::prefix('absence')->group(function()
+{
+Route::post('/annuler/{id}',[AbsenceController::class,'annuler'])->name('absence.annuler');
+Route::post('/validation/{id}',[AbsenceController::class,'validation'])->name('absences.validation');
+Route::post('/annulerAbsence/{id}',[AbsenceController::class,'annulerAbsence'])->name('absence.annulerAbsence');
+Route::get('/annulerAbsence/{id}',[AbsenceController::class,'causeAnnuler'])->name('absences.absenceAnnuler');
+
 });

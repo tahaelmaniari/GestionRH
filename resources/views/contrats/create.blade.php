@@ -25,11 +25,11 @@
                          class="form-control">
                          Veuillez choisir un type de contrat</option>
                         </div>
-                        @foreach($contrats->unique('typeContrat') as $contrat)
-                        <option value="{{$contrat->typeContrat}}"
-                          @if (old('typeContrat') == $contrat->id) selected="selected" @endif
+                        @foreach($typeContrats as $type)
+                        <option value="{{$type->typeContrat}}"
+                          @if (old('typeContrat') == $type->id) selected="selected" @endif
                           >
-                          {{$contrat->typeContrat}}</option>
+                          {{$type->typeContrat}}</option>
                               @endforeach
                       </select>  
                        @if($errors->has('typeContrat'))

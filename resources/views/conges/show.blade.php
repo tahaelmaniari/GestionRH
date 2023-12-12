@@ -25,7 +25,7 @@
 @endif
       <div class="row">
         <div class="col-md-12">
-            <table class="table table-stripped">
+            <table class="table">
                 <thead>
                 <tr>
                   <th>Photo</th>
@@ -35,6 +35,7 @@
                     <th>Date fin</th>
                     <th>Nombre de congé Demandé</th>
                     <th>Nombre de congé Resté</th>
+                    <th>Status de Congé</th>
                 </thead>
                 <tbody>
                     <tr>
@@ -53,24 +54,17 @@
                             <div class="d-flex">
                             <a href="{{route('conges.index')}}" class="btn btn-primary btn-sm"style="width:30px;margin-left:20px;height:30px;">
                                 <i class="fas fa-undo-alt"></i></a>
-                                <!--
-                                <a href="{{route('conges.edit',['id' => $conge->id]) }}" class="btn btn-warning btn-sm" style="width:30px;margin-left:20px;height:30px;">
-                                    <i class="fas fa-edit"></i></a>
-                                -->
                                     <form method="POST" action="{{ route('conges.destroy',$conge->id)}}" class="form-group" id="formDelete">
                                     @csrf 
                                     {{ method_field('DELETE') }}
                                     <button type="submit" class="btn btn-danger btn-sm destroy" style="width:30px;margin-left:20px;height:30px;">
                                         <i class="fas fa-trash-alt"></i></button>
-                                    </div>
                                   </form>
                                     @if($conge->status == 1 and auth()->user()->role =='user')
-                                    <div class="d-flex ml-4">
-                                      <i class="fas fa-check mt-2 bg-green" style="height:25px;font-size:30px;"></i>
+                                      <i class="fas fa-check bg-green ml-4" style="height: 30px;font-size:30px;"></i>
                                       <h4 class="mt-2 ml-2">Validé</h4>
                                   </div>
                                     @endif
-                                
                                     @if(auth()->user()->role == 'admin' and $conge->status == 0)
                                     <form action="{{route('conges.validation',['id' => $conge->id])}}" method="POST" id="formValidation">
                                       @csrf

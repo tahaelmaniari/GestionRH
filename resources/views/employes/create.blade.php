@@ -115,7 +115,7 @@
                     <div class="invalid-feedback">{{$errors->first('role')}}</div>
                     @endif
                     </div>
-                    <button class="btn btn-primary ml-5 mt-4">S'enregistrer</button>
+                    <button class="btn btn-primary mt-4">S'enregistrer</button>
                 </form>
         </div>
       </div>

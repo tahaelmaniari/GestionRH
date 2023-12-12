@@ -8,6 +8,7 @@ use App\Models\Solde;
 use App\Models\Contrat;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Employe extends Model
@@ -57,6 +58,10 @@ class Employe extends Model
     public function typeConge()
     {
         return $this->hasOne(TypeConge::class,'typeConge_id','id');
+    }
+    public function absence():HasMany
+    {
+        return $this->hasMany(Absence::class);
     }
 
 }

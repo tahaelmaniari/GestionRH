@@ -12,6 +12,9 @@
 @if(Session::has('good'))
 <div class="alert alert-info">{{Session::get('good')}}</div>
 @endif
+@if(Session::has('changedRole'))
+<div class="alert alert-info">{{Session::get('changedRole')}}</div>
+@endif
 @if (auth()->user()->role == 'admin')
 <div class="form-group text-right ml-5">
   <a href="{{route('employes.create')}}" style="width:30px;height:30px;" class="bnt btn-success py-2 px-2">
@@ -117,9 +120,9 @@
   <th>Nom</th>
   <th>Ville</th>
   <th>Adresse</th>
-  <th>Numero de telephone</th>
+  <th>Nombre de Congé</th>
   <th>Date de debut</th>
-  <th>Date de fin</th>
+  <th>Role</th>
   <th>Specialité</th>
   <th class="text-center">Actions</th>
   </thead>
@@ -135,9 +138,9 @@
           <td>{{$employe->nom}} {{$employe->prenom}}</td>
           <td>{{$employe->ville}}</td>
           <td>{{$employe->adresse}}</td>
-          <td>{{$employe->numeroTelephone}}</td>
+          <td>{{$employe->nombreConge}}</td>
           <td>{{$employe->dateDebut}}</td>
-          <td>{{$employe->dateFin}}</td>
+          <td>{{$employe->role}}</td>
           <td>{{$employe->specialite}}</td>
           @if(auth()->user()->role == 'admin')
           <td class ="d-flex ml-5 ">
@@ -152,6 +155,26 @@
                           <i class="fas fa-trash-alt"></i>
                       </button>
                   </form>
+                  @if(auth()->user()->role == 'admin')
+                  @if($employe->role == 'admin')
+                  <form action="{{route('employes.changeAdmin',['id' => $employe->id])}}" method="post" class="form-group">
+                      @csrf 
+                      @method('POST')
+                      <button type="submit" class="btn btn-dark ml-2 changeUser" style="width:30px;height:30px;padding:3px;" >
+                      U
+                      </button>
+                  </form>
+                  @else
+                  <form action="{{route('employes.changeRole',['id' => $employe->id])}}" method="post" class="form-group">
+                      @csrf 
+                      @method('POST')
+                      <button type="submit" class="btn btn-info ml-2 changeAdmin" style="width:30px;height:30px;padding:3px;" >
+                      A
+                      </button>
+                  </form>
+                  @endif
+                  @endif                  
+
           </td>
           @else 
 
@@ -177,13 +200,13 @@
     $('.select2bs4').select2({
       theme: 'bootstrap4'
     });
-    $('.destroy').click(function(event)
+$('.destroy').click(function(event)
 {
 event.preventDefault();
 let parentForm = $(this).parent();
 Swal.fire({
 title: 'Vous etes sure ?',
-text: "Vous voullez supprimer cet employé!",
+text: "Vous voullez supprimer cet employé ?",
 icon: 'warning',
 showCancelButton: true,
 confirmButtonColor: '#3085d6',
@@ -200,5 +223,56 @@ if (result.isConfirmed){
 }
 })
 })
+
+$('.changeAdmin').click(function(event)
+{
+event.preventDefault();
+let parentForm = $(this).parent();
+Swal.fire({
+title: 'Vous etes sure de changer vers admin ?',
+text: "Vous voullez changer le role vers admin ?",
+icon: 'warning',
+showCancelButton: true,
+confirmButtonColor: '#3085d6',
+cancelButtonColor: '#d33',
+confirmButtonText: 'Oui,Changez !',
+}).then((result) => {
+if (result.isConfirmed){
+  Swal.fire(
+    'Modifier!',
+    'Modification avec succés vers admin.',
+    'success',
+  )
+ parentForm.submit()
+}
+})
+})
+
+
+$('.changeUser').click(function(event)
+{
+event.preventDefault();
+let parentForm = $(this).parent();
+Swal.fire({
+title: 'Vous etes sure de changer vers user ?',
+text: "Vous voullez changer le role vers user ?",
+icon: 'warning',
+showCancelButton: true,
+confirmButtonColor: '#3085d6',
+cancelButtonColor: '#d33',
+confirmButtonText: 'Oui,Changez !',
+}).then((result) => {
+if (result.isConfirmed){
+  Swal.fire(
+    'Modifier!',
+    'Modification avec succés vers user.',
+    'success',
+  )
+ parentForm.submit()
+}
+})
+})
+
+
 </script>
 @endsection

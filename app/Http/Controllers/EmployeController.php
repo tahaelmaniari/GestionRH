@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Session\Session;
 
+use function Ramsey\Uuid\v1;
+
 class EmployeController extends Controller
 {
     /**
@@ -76,7 +78,7 @@ class EmployeController extends Controller
         {
             return $query->where('specialite','like','%'.$specialite .'%');
         })->where('user_id',auth()->user()->id)->paginate(5);
-     return View('employes.index',['employes'=> $employes]);
+     return view('employes.index',['employes'=> $employes,'employeAdmin' => $employeAdmin]);
     }
 
     /**
@@ -274,5 +276,24 @@ class EmployeController extends Controller
         $pdf = PDF::loadView('employes.pdf',$data);
         return $pdf->download('employes.pdf');
     }
-    
+    public function changeRole($id)
+    {
+        $employe = Employe::find($id);
+        $user = User::find($id);
+        $employe->role = 'admin';
+        $user->role = 'admin';
+        $employe->update();
+        $user->update();
+        return redirect()->route('employes.index')->with('changedRole','Le role est bien changé...');
+    }
+    public function changeAdmin($id)
+    {
+        $employe = Employe::find($id);
+        $user = User::find($id);
+        $employe->role = 'user';
+        $user->role = 'user';
+        $employe->update();
+        $user->update();
+        return redirect()->route('employes.index')->with('changedRole','Le role est bien changé...');
+    }   
 }

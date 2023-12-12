@@ -28,11 +28,10 @@
             <table class="table table-stripped">
                 <thead>
                 <tr>
-                    <th></th>
-                    <th>ID</th>
+                    <th>Image</th>
+                    <th>Nom Employe</th>
                     <th>Type Contrat</th>
                     <th>Date de contrat</th>
-                    <th>Nom Employe</th>
                     <th class="text-center">Actions</th>
                 </thead>
                 <tbody>
@@ -43,10 +42,9 @@
                     @else
                     <td><img src="{{asset('Image/employe1.png')}}" class="rounded float-left" width="50px" height="50px"/></td>
                     @endif
-                        <td>{{$contrat->id}}</td>
+                    <td>{{$contrat->employe->nom}} {{$contrat->employe->prenom}}</td>
                         <td>{{$contrat->typeContrat}}</td>
                         <td>{{$contrat->dateContrat}}</td>
-                        <td>{{$contrat->employe->nom}} {{$contrat->employe->prenom}}</td>
                         <td>
                             <div class="d-flex">
                             <a href="{{route('contrats.index')}}" class="btn btn-primary btn-sm"style="width:30px;margin-left:20px;height:30px;">

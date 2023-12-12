@@ -31,7 +31,7 @@
                     <th>Photo</th>
                     <th>Nom</th>
                     <th>Ville</th>
-                    <th>Numero Telephone</th>
+                    <th>Nombre Congé</th>
                     <th>Date Debut</th>
                     <th>Date Fin</th>
                     <th>Specialité</th>
@@ -44,20 +44,20 @@
                         @else
                         <td><img src="{{asset('Image/employe1.png')}}" class="rounded float-left" width="50px" height="50px"/></td>
                         @endif
-                        <td>{{$unit->lenght}}</td>
-          <td>{{$unit->width}}</td>
-          <td>{{$unit->height}}</td>
-          <td>{{$unit->budget}}</td>
-          <td>{{$unit->surfacing}}</td>
-          <td>{{$unit->frame}}</td>
+                        <td>{{$employe->nom}} {{ $employe->prenom }}</td>
+          <td>{{$employe->ville}}</td>
+          <td>{{$employe->nombreConge}}</td>
+          <td>{{$employe->dateDebut}}</td>
+          <td>{{$employe->dateFin}}</td>
+          <td>{{$employe->specialite}}</td>
                         <td>
                             <div class="d-flex">
-                            <a href="{{route('units.index')}}" class="btn btn-primary btn-sm"style="width:30px;margin-left:20px;height:30px;">
+                            <a href="{{route('employes.index')}}" class="btn btn-primary btn-sm"style="width:30px;margin-left:20px;height:30px;">
                                 <i class="fas fa-undo-alt"></i></a>
-                                <form method="POST" action="{{ route('units.destroy', $unit->id) }}" class="form-group ">
+                                <form method="POST" action="{{ route('employes.destroy', $employe->id) }}" class="form-group ">
                                     @csrf 
                                     {{ method_field('DELETE') }}
-                                    <button type="submit" onclick="deleteConfirmation({{$unit->id}})" class="btn btn-danger btn-sm destroy" style="width:30px;margin-left:20px;height:30px;">
+                                    <button type="submit" onclick="deleteConfirmation({{$employe->id}})" class="btn btn-danger btn-sm destroy" style="width:30px;margin-left:20px;height:30px;">
                                         <i class="fas fa-trash-alt"></i></button>
                                     </div>
                                     </td>
